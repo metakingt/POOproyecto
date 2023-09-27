@@ -1,37 +1,36 @@
 package logica;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Combo {
-    // Atributos de la clase Combo
+    private int[] idcateg;
+    private int[] codigoprod;
     private int idCombo;
-    private String nombre;
-    private int precioCombo;
-    private List<Productos> productos;
+    private int Precio;
 
-    // Constructor de la clase Combo
-    public Combo(int idCombo, String nombre, int precioCombo) {
+    public Combo(int[] idcateg, int[] codigoprod, int idCombo, int precio) {
+        this.idcateg = idcateg;
+        this.codigoprod = codigoprod;
         this.idCombo = idCombo;
-        this.nombre = nombre;
-        this.precioCombo = precioCombo;
-        this.productos = new ArrayList<>();
+        this.Precio = precio;
     }
 
-    // Método para agregar un producto al combo
-    public void agregarProducto(Productos producto) {
-        productos.add(producto);
+    // Getters y setters (si es necesario)
+
+    public int[] getIdcateg() {
+        return idcateg;
     }
 
-    // Método para calcular el precio total del combo
-    public double calcularPrecio() {
-       int precioTotal = precioCombo;
-        for (Productos producto : productos) {
-            precioTotal += producto.getPrecio();
-        }
-        return precioTotal;
+    public void setIdcateg(int[] idcateg) {
+        this.idcateg = idcateg;
     }
 
-    // Getters y setters para los atributos
+    public int[] getCodigoprod() {
+        return codigoprod;
+    }
+
+    public void setCodigoprod(int[] codigoprod) {
+        this.codigoprod = codigoprod;
+    }
+
     public int getIdCombo() {
         return idCombo;
     }
@@ -40,27 +39,11 @@ public class Combo {
         this.idCombo = idCombo;
     }
 
-    public String getNombre() {
-        return nombre;
+    public int getPrecio() {
+        return Precio;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public double getPrecioCombo() {
-        return precioCombo;
-    }
-
-    public void setPrecioCombo(int precioCombo) {
-        this.precioCombo = precioCombo;
-    }
-
-    public List<Productos> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(List<Productos> productos) {
-        this.productos = productos;
+    public void setPrecio(int precio) {
+        this.Precio = precio;
     }
 }
