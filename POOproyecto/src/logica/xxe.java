@@ -1,15 +1,22 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class xxe {
 
 	private ArrayList<CategProductos> categproductos;
 	private ArrayList<Combo> combo;
-
+	private ArrayList<Cajero> cajeros;
+	private ArrayList<Productos> producto;
+	private ArrayList<Factura> facturas;
+	
 	public xxe() {
 		this.categproductos = new ArrayList<CategProductos>();
+		this.producto = new ArrayList<Productos>();
 		this.combo = new ArrayList<Combo>();
+		this.cajeros = new ArrayList<Cajero>();
+		this.facturas = new ArrayList<Factura>();
 	
 	}
 	public void ingresarTipoProducto(int id, String nombre) {
@@ -19,7 +26,8 @@ public class xxe {
 	public void ingresarProducto(int idTipoProducto, int codigo, String nombre, int Precio) {
 		CategProductos categproducto = this.buscarTipoProducto(idTipoProducto);
 		if( categproducto != null) {
-			categproducto.ingresarProducto(codigo, nombre, Precio);
+			Productos producto = new Productos(codigo, nombre, Precio); 
+			this.producto.add(producto);
 		}
 		
 	}
@@ -31,10 +39,49 @@ public class xxe {
 		}
 		return null;
 	}
+	 private Productos buscarProducto(int codigoProducto) {
+			for(Productos producto : this.producto ) {
+				if(producto.getCodigo() == codigoProducto) {
+					return producto;
+				}
+			}
+			return null;
+		}
+	 private Cajero buscarCajero(int idCajero) {
+		 for(Cajero cajero : this.cajeros) {
+			 if(cajero.getId() == idCajero) {
+				 return cajero;
+			 }
+		 }
+		 return null;
+	 }
 	
 	public void nuevoCombo(int[] ids, int[] codigos,int idCombo, int precioCombo) {
-				Combo combo = new Combo(ids, codigos,idCombo, precioCombo);
-				this.combo.add(combo);
+		for (int i = 0; i < ids.length; i++) {
+			CategProductos categproducto = this.buscarTipoProducto(ids[i]);
+			if(categproducto != null) {
+				Productos producto = this.buscarProducto(codigos[i]);
+				if(producto != null) {
+					Combo combo = new Combo(ids, codigos,idCombo, precioCombo);
+					this.combo.add(combo);
+				}
 			}
+		}
+			}
+	public void ingresarCajero(int id, String nombre, String apellido) {
+		Cajero cajero = new Cajero(id, nombre, apellido);
+		this.cajeros.add(cajero);
+	}
+	public void ingresarFactura(int idCajero, Date fecha, ArrayList<int[]> productosComprados) {
+		Cajero cajero = this.buscarCajero(idCajero);
+		int numero = this.facturas.size() + 1;
+		Factura factura = new Factura(numero, fecha, cajero);
+		for(int[] datos : productosComprados) {
+			Productos producto = this.buscarProducto(datos[0]);
+			factura.adicionarproducto(producto, datos[1]);
+		}
+		factura.calcularTotal();
+		this.facturas.add(factura);
+	}
 		}
 	
