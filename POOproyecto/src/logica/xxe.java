@@ -6,7 +6,7 @@ import java.util.Date;
 public class xxe {
 
 	private ArrayList<CategProductos> categproductos;
-	private ArrayList<Combo> combo;
+	private ArrayList<Combo> combos;
 	private ArrayList<Cajero> cajeros;
 	private ArrayList<Productos> producto;
 	private ArrayList<Factura> facturas;
@@ -14,7 +14,7 @@ public class xxe {
 	public xxe() {
 		this.categproductos = new ArrayList<CategProductos>();
 		this.producto = new ArrayList<Productos>();
-		this.combo = new ArrayList<Combo>();
+		this.combos = new ArrayList<Combo>();
 		this.cajeros = new ArrayList<Cajero>();
 		this.facturas = new ArrayList<Factura>();
 	
@@ -55,6 +55,14 @@ public class xxe {
 		 }
 		 return null;
 	 }
+	 private Combo buscarCombo(int idCombo) {
+		 for(Combo combo : this.combos) {
+			 if(combo.getIdCombo() == idCombo) {
+				 return combo;
+			 }
+		 }
+		 return null;
+	 }
 	
 	public void nuevoCombo(int[] ids, int[] codigos,int idCombo, int precioCombo) {
 		for (int i = 0; i < ids.length; i++) {
@@ -63,7 +71,7 @@ public class xxe {
 				Productos producto = this.buscarProducto(codigos[i]);
 				if(producto != null) {
 					Combo combo = new Combo(ids, codigos,idCombo, precioCombo);
-					this.combo.add(combo);
+					this.combos.add(combo);
 				}
 			}
 		}
@@ -77,11 +85,28 @@ public class xxe {
 		int numero = this.facturas.size() + 1;
 		Factura factura = new Factura(numero, fecha, cajero);
 		for(int[] datos : productosComprados) {
+			if(datos[3] == 0) {
+				int temp = datos[5];
+				datos[2] = temp;
 			Productos producto = this.buscarProducto(datos[0]);
 			factura.adicionarproducto(producto, datos[1]);
+			}else {
+				Combo combo = this.buscarCombo(datos[3]);
+				factura.adicionarcombo(combo, datos[4]);
+			}
 		}
 		factura.calcularTotal();
 		this.facturas.add(factura);
+	}
+	public void imprimirFacturas() {
+		for(Factura factura : this.facturas) {
+			System.out.println("-------");
+			System.out.println(factura.getNumero() + " -> " + factura.getFecha() + " -> " + factura.getValorTotal() + " -> " + factura.getCajero().getNombre());
+			for(Facturaproducto facturaProducto : factura.getFacturaproductos()) {
+				System.out.println(facturaProducto.getProducto().getNombre() + " -> " + facturaProducto.getCantidad() + " -> " + facturaProducto.getPrecio());
+			}
+		}
+		
 	}
 		}
 	

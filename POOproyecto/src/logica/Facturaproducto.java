@@ -6,6 +6,7 @@ public class Facturaproducto {
 	private int precio;
 	
 	private Productos producto;
+	private Combo combo;
 	
 	public int getCantidad() {
 		return cantidad;
@@ -25,10 +26,24 @@ public class Facturaproducto {
 	public void setProducto(Productos producto) {
 		this.producto = producto;
 	}
+	public Combo getCombo() {
+		return combo;
+	}
+	public void setCombo(Combo combo) {
+		this.combo = combo;
+	}
 	public Facturaproducto(int cantidad, int precio, Productos producto) {
 		super();
 		this.cantidad = cantidad;
 		this.precio = precio;
 		this.producto = producto;
+		this.combo = null;
+	}
+	public Facturaproducto(int cantidad, int precio, Combo combo) {
+		super();
+		this.cantidad = cantidad;
+		this.precio = precio;
+		this.producto = null;
+		this.combo = combo;
 	}
 }

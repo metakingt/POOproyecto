@@ -93,7 +93,21 @@ public class Hamburgueseria {
 	            		int otroProducto;
 	            		ArrayList<int[]>productosComprados = new ArrayList<int[]>();
 	            		do {
-	            			int datos[] = new int[2];
+	            			System.out.println("El producto es un combo?\n"
+	            					+ "1. Si\n"
+	            					+ "2. No\n");
+	            			int bifur = sc.nextInt();
+	            			int datos[] = new int[5];
+	            			switch (bifur) {
+	            			case 1:
+	            				
+	            				System.out.println("Digite id del combo");
+	            				int idCombo = sc.nextInt();
+	            				System.out.println("Digite la cantidad de combos");
+	            				int cantCombo = sc.nextInt();
+	            				datos[3] = idCombo;
+	            				datos[4] = cantCombo;
+	            			case 2:
 	            			System.out.println("Digite id del producto");
 	            			int idProducto = sc.nextInt();
 	            			System.out.println("Digite la cantidad del producto");
@@ -104,9 +118,14 @@ public class Hamburgueseria {
 	            			System.out.println("Desea ingresar otro producto?\n"
 	    							+ "1. Si\n"
 	    							+ "2. No\n");
+	            			}
 	            			otroProducto = sc.nextInt();
 	            		}while(otroProducto == 1);
 	            		this.xxe.ingresarFactura(idCajero,fecha, productosComprados);
+	            	}else {
+	            		if(op == 6) {
+	            			this.xxe.imprimirFacturas();
+	            		}
 	            	}
 	            }
 	            }
