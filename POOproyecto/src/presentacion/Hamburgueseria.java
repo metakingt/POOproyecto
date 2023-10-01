@@ -30,7 +30,9 @@ public class Hamburgueseria {
 	            	+ "2. ingresar Producto\n"
 	            	+ "3. ingresar Combo\n"
 	            	+ "4. ingresar Cajero\n"
-	            	+ "5. ingresar Factura\n");
+	            	+ "5. ingresar Factura\n"
+	            	+ "6. imprimir Facturas\n"
+	            	+ "7. cargar Archivos\n");
 	            op = sc.nextInt();
 
 	            if(op == 1){
@@ -81,7 +83,7 @@ public class Hamburgueseria {
 	            	if(op == 5) {
 	            		System.out.println("Digite id del Cajero");
 	            		int idCajero = sc.nextInt();
-	            		System.out.println("Digite la fecha");
+	            		System.out.println("Digite la fecha de forma yyyy-MM-dd");
 	            		String fechaTexto = sc.next();
 	            		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	            		Date fecha = null;
@@ -97,16 +99,25 @@ public class Hamburgueseria {
 	            					+ "1. Si\n"
 	            					+ "2. No\n");
 	            			int bifur = sc.nextInt();
-	            			int datos[] = new int[5];
+	            			
+	            			int datos[] = new int[6];
+	            				
 	            			switch (bifur) {
 	            			case 1:
-	            				
+		            				
 	            				System.out.println("Digite id del combo");
 	            				int idCombo = sc.nextInt();
 	            				System.out.println("Digite la cantidad de combos");
 	            				int cantCombo = sc.nextInt();
 	            				datos[3] = idCombo;
 	            				datos[4] = cantCombo;
+	            				System.out.println("quiere ingresar mas productos?\n"
+	            						+ "1. Si\n"
+		            					+ "2. No\n");
+	            				int bifur2 = sc.nextInt();
+	            				if(bifur2 == 2) {
+	            					break;
+	            				}
 	            			case 2:
 	            			System.out.println("Digite id del producto");
 	            			int idProducto = sc.nextInt();
@@ -115,17 +126,21 @@ public class Hamburgueseria {
 	            			datos[0] = idProducto;
 	            			datos[1] = cantidadProducto;
 	            			productosComprados.add(datos);
-	            			System.out.println("Desea ingresar otro producto?\n"
-	    							+ "1. Si\n"
-	    							+ "2. No\n");
 	            			}
+	            			System.out.println("Desea ingresar otro producto?\n"
+		    							+ "1. Si\n"
+		    							+ "2. No\n");
 	            			otroProducto = sc.nextInt();
 	            		}while(otroProducto == 1);
 	            		this.xxe.ingresarFactura(idCajero,fecha, productosComprados);
 	            	}else {
 	            		if(op == 6) {
 	            			this.xxe.imprimirFacturas();
-	            		}
+	            	}else {
+		            	if(op == 7) {
+		            		this.xxe.leerArchivos();
+		            		}
+		            	}
 	            	}
 	            }
 	            }

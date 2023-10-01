@@ -3,6 +3,8 @@ package logica;
 import java.util.ArrayList;
 import java.util.Date;
 
+import persistencia.Archivo;
+
 public class xxe {
 
 	private ArrayList<CategProductos> categproductos;
@@ -94,19 +96,53 @@ public class xxe {
 				Combo combo = this.buscarCombo(datos[3]);
 				factura.adicionarcombo(combo, datos[4]);
 			}
+			if(datos[0] == 0) {
+				Combo combo = this.buscarCombo(datos[3]);
+				factura.adicionarcombo(combo, datos[4]);
+			}
 		}
 		factura.calcularTotal();
 		this.facturas.add(factura);
 	}
+	public void leerArchivos() {
+		ArrayList<String> lineas;
+		lineas = Archivo.leerArchivo("tipoProducto.dat");
+		for(String linea : lineas) {
+			String datos[] = linea.split(",");
+			this.ingresarTipoProducto(Integer.parseInt(datos[0]), datos[1]);
+		}
+		lineas = Archivo.leerArchivo("producto.dat");
+		for(String linea : lineas) {
+			String datos[] = linea.split(",");
+			this.ingresarProducto(Integer.parseInt(datos[0]), Integer.parseInt(datos[1]), datos[2], Integer.parseInt(datos[3]));
+		}		
+		lineas = Archivo.leerArchivo("cajero.dat");
+		for(String linea : lineas) {
+			String datos[] = linea.split(",");
+			this.ingresarCajero(Integer.parseInt(datos[0]), datos[1], datos[2]);
+		}		
+		
+		}
 	public void imprimirFacturas() {
-		for(Factura factura : this.facturas) {
-			System.out.println("-------");
-			System.out.println(factura.getNumero() + " -> " + factura.getFecha() + " -> " + factura.getValorTotal() + " -> " + factura.getCajero().getNombre());
-			for(Facturaproducto facturaProducto : factura.getFacturaproductos()) {
+	for(Factura factura : this.facturas) {
+		System.out.println("-------");
+		System.out.println(factura.getNumero() + " -> " + factura.getFecha() + " -> " + factura.getValorTotal() + " -> " + factura.getCajero().getNombre());
+		for(Facturaproducto facturaProducto : factura.getFacturaproductos()) {
+			if(facturaProducto.getProducto() == null) {
+			}else {
 				System.out.println(facturaProducto.getProducto().getNombre() + " -> " + facturaProducto.getCantidad() + " -> " + facturaProducto.getPrecio());
 			}
-		}
-		
 	}
-		}
+		for(Facturaproducto facturaProducto : factura.getFacturaproductos()) {
+			if(facturaProducto.getCombo() == null) {
+			}else {
+			System.out.println(facturaProducto.getCombo().getIdCombo() + " -> " + facturaProducto.getCantidad() + " -> " + facturaProducto.getPrecio());
+			}
+			}
+	}
+	
+}
+}
+
+		
 	

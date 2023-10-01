@@ -37,13 +37,18 @@ public class Facturaproducto {
 		this.cantidad = cantidad;
 		this.precio = precio;
 		this.producto = producto;
-		this.combo = null;
 	}
 	public Facturaproducto(int cantidad, int precio, Combo combo) {
 		super();
 		this.cantidad = cantidad;
 		this.precio = precio;
-		this.producto = null;
+		this.combo = combo;
+	}
+	public Facturaproducto(int cantidad, int precio, Productos producto, Combo combo) {
+		super();
+		this.cantidad = cantidad;
+		this.precio = precio;
+		this.producto = producto;
 		this.combo = combo;
 	}
 }

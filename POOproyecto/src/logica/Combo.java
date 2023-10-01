@@ -13,7 +13,6 @@ public class Combo {
         this.Precio = precio;
     }
 
-    // Getters y setters (si es necesario)
 
     public int[] getIdcateg() {
         return idcateg;
