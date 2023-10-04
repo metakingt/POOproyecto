@@ -66,19 +66,13 @@ public class xxe {
 		 return null;
 	 }
 	
-	public void nuevoCombo(int[] ids, int[] codigos,int idCombo, int precioCombo) {
-		for (int i = 0; i < ids.length; i++) {
-			CategProductos categproducto = this.buscarTipoProducto(ids[i]);
-			if(categproducto != null) {
-				Productos producto = this.buscarProducto(codigos[i]);
-				if(producto != null) {
-					Combo combo = new Combo(ids, codigos,idCombo, precioCombo);
-					this.combos.add(combo);
+	public void nuevoCombo(int id, String nombre, ArrayList<Productos> contenido) {
+		for(int i = 0; i < contenido.size(); i++) {
+			int content = contenido.get(i);
+		Productos producto = this.buscarProducto(Content);
 				}
 			}
-		}
-			}
-	public void ingresarCajero(int id, String nombre, String apellido) {
+	publisc void ingresarCajero(int id, String nombre, String apellido) {
 		Cajero cajero = new Cajero(id, nombre, apellido);
 		this.cajeros.add(cajero);
 	}

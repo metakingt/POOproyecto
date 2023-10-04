@@ -61,7 +61,7 @@ public class Factura {
 		this.facturaproductos.add(facturaproducto);
 	}
 	public void adicionarcombo(Combo combo, int cantidad) {
-		Facturaproducto facturaproducto = new Facturaproducto(cantidad, combo.getPrecio(), combo );
+		Facturaproducto facturaproducto = new Facturaproducto(cantidad, combo.getprecio(), combo );
 		this.facturaproductos.add(facturaproducto);
 	}
 	public void calcularTotal() {
