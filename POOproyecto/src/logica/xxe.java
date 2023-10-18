@@ -6,12 +6,12 @@ import java.util.Date;
 import persistencia.Archivo;
 
 public class xxe {
-
 	private ArrayList<CategProductos> categproductos;
 	private ArrayList<Combo> combos;
 	private ArrayList<Cajero> cajeros;
 	private ArrayList<Productos> producto;
 	private ArrayList<Factura> facturas;
+	private ArrayList<Ingredientes> ingredientes;
 	
 	public xxe() {
 		this.categproductos = new ArrayList<CategProductos>();
@@ -19,6 +19,7 @@ public class xxe {
 		this.combos = new ArrayList<Combo>();
 		this.cajeros = new ArrayList<Cajero>();
 		this.facturas = new ArrayList<Factura>();
+		this.ingredientes = new ArrayList<Ingredientes>(); 
 	
 	}
 	public void ingresarTipoProducto(int id, String nombre) {
@@ -32,6 +33,17 @@ public class xxe {
 			this.producto.add(producto);
 		}
 		
+	}
+	public void ingresarProductocomp(int idTipoProducto, int[]ids, int codigo, String nombre, int Precio) {
+		CategProductos categproducto = this.buscarTipoProducto(idTipoProducto);
+		if( categproducto != null) {
+			Productos producto = new Productos(codigo, ids, nombre, Precio);
+			this.producto.add(producto);
+		}
+	}
+	public void ingresartopping(int codigo, String nombre, int precio) {
+		Ingredientes ingrediente = new Ingredientes(codigo, nombre, precio);
+		this.ingredientes.add(ingrediente);
 	}
 	private CategProductos buscarTipoProducto(int idTipoProducto) {
 		for(CategProductos categproducto : this.categproductos) {
@@ -66,13 +78,16 @@ public class xxe {
 		 return null;
 	 }
 	
-	public void nuevoCombo(int id, String nombre, ArrayList<Productos> contenido) {
-		for(int i = 0; i < contenido.size(); i++) {
-			int content = contenido.get(i);
-		Productos producto = this.buscarProducto(Content);
+	public void nuevoCombo(int[] ids,String nombre,int idCombo, int precioCombo) {
+		for (int i = 0; i < ids.length; i++) {
+				Productos producto = this.buscarProducto(ids[i]);
+				if(producto != null) {
+					Combo combo = new Combo(nombre, idCombo, ids, precioCombo);
+					this.combos.add(combo);
 				}
+		}
 			}
-	publisc void ingresarCajero(int id, String nombre, String apellido) {
+	public void ingresarCajero(int id, String nombre, String apellido) {
 		Cajero cajero = new Cajero(id, nombre, apellido);
 		this.cajeros.add(cajero);
 	}
@@ -98,7 +113,8 @@ public class xxe {
 		factura.calcularTotal();
 		this.facturas.add(factura);
 	}
-	public void leerArchivos() {
+	public void leerArchivos(){
+		String[] datos1;
 		ArrayList<String> lineas;
 		lineas = Archivo.leerArchivo("tipoProducto.dat");
 		for(String linea : lineas) {
@@ -114,11 +130,28 @@ public class xxe {
 		for(String linea : lineas) {
 			String datos[] = linea.split(",");
 			this.ingresarCajero(Integer.parseInt(datos[0]), datos[1], datos[2]);
-		}		
-		
+		}
+		lineas = Archivo.leerArchivo("ingredientes.dat");
+		for(String linea : lineas) {
+			String datos[] = linea.split(",");
+			this.ingresartopping(Integer.parseInt(datos[0]), datos[1], Integer.parseInt(datos[2]));
+		}
+		lineas = Archivo.leerArchivo("productocomp.dat");
+		for(String linea : lineas) {
+			datos1 = linea.split(",");
+			int[] ingredientes = new int[] {Integer.parseInt(datos1[1]), Integer.parseInt(datos1[2]), Integer.parseInt(datos1[3]), Integer.parseInt(datos1[4]), Integer.parseInt(datos1[5]), Integer.parseInt(datos1[6])};
+			this.ingresarProductocomp(Integer.parseInt(datos1[0]), ingredientes, Integer.parseInt(datos1[7]), datos1[8], Integer.parseInt(datos1[9]));
+		}
+		lineas = Archivo.leerArchivo("Combos.dat");
+		for(String linea : lineas) {
+			datos1 = linea.split(",");
+			int[] productos = new int[] {Integer.parseInt(datos1[2]), Integer.parseInt(datos1[3]), Integer.parseInt(datos1[4]), Integer.parseInt(datos1[5]), Integer.parseInt(datos1[6]), Integer.parseInt(datos1[7])};
+			this.nuevoCombo(productos, datos1[0], Integer.parseInt(datos1[1]), Integer.parseInt(datos1[8]));
+		}
 		}
 	public void imprimirFacturas() {
 	for(Factura factura : this.facturas) {
+		factura.restaringredientes(descuento);
 		System.out.println("-------");
 		System.out.println(factura.getNumero() + " -> " + factura.getFecha() + " -> " + factura.getValorTotal() + " -> " + factura.getCajero().getNombre());
 		for(Facturaproducto facturaProducto : factura.getFacturaproductos()) {
@@ -131,11 +164,20 @@ public class xxe {
 			if(facturaProducto.getCombo() == null) {
 			}else {
 			System.out.println(facturaProducto.getCombo().getIdCombo() + " -> " + facturaProducto.getCantidad() + " -> " + facturaProducto.getPrecio());
+				}
 			}
-			}
+		}
 	}
-	
-}
+	public int descuento;
+	public void restaingredientes(int idIngrediente) {
+		for(int i = 0; i < ingredientes.size(); i++) {
+			if(ingredientes.get(i).getCodigo() == idIngrediente) {
+				int descuento1 = ingredientes.get(i).getPrecio();
+				descuento1 = (int) (descuento1 * 0.2);
+				descuento = descuento + descuento1;
+			}
+		}
+	}	
 }
 
 		

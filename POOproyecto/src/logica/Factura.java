@@ -13,6 +13,7 @@ public class Factura {
 	
 	private ArrayList<Facturaproducto> facturaproductos;
 	
+	public int total = 0;
 	public int getNumero() {
 		return numero;
 	}
@@ -61,14 +62,17 @@ public class Factura {
 		this.facturaproductos.add(facturaproducto);
 	}
 	public void adicionarcombo(Combo combo, int cantidad) {
-		Facturaproducto facturaproducto = new Facturaproducto(cantidad, combo.getprecio(), combo );
+		Facturaproducto facturaproducto = new Facturaproducto(cantidad, combo.getPrecio(), combo );
 		this.facturaproductos.add(facturaproducto);
 	}
 	public void calcularTotal() {
-		int total = 0;
 		for(Facturaproducto facturaproducto : this.facturaproductos) {
 			total += facturaproducto.getPrecio() * facturaproducto.getCantidad();
 		}
+		this.valorTotal = total;
+	}
+	public void restaringredientes(int restar) {
+		total = total - restar;
 		this.valorTotal = total;
 	}
 }

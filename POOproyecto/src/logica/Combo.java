@@ -1,12 +1,11 @@
 package logica;
 
-import java.util.ArrayList;
-
 public class Combo {
-	private int idCombo;
 	private String nombre;
-	private ArrayList<Productos> Contenidos;
+	private int[] idproductos;
 	private int precio;
+	private int idCombo;
+	
 	public int getIdCombo() {
 		return idCombo;
 	}
@@ -19,30 +18,22 @@ public class Combo {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public ArrayList<Productos> getProductos() {
-		return Contenidos;
+	public int[] getIdproductos() {
+		return idproductos;
 	}
-	public void setProductos(ArrayList<Productos> productos) {
-		this.Contenidos = productos;
+	public void setIdproductos(int[] idproductos) {
+		this.idproductos = idproductos;
 	}
-	public int getprecio() {
+	public int getPrecio() {
 		return precio;
 	}
-	public void setprecio(int precio) {
+	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
-	public Combo(int idCombo, String nombre, ArrayList<Productos> contenidos) {
-		this.idCombo = idCombo;
+	public Combo(String nombre,int codigo, int[] ids, int Precio) {
 		this.nombre = nombre;
-		this.Contenidos = new ArrayList<Productos>();
-	}
-	public void preciocombo() {
-		int total = 0;
-		int dscombo = 0;
-		for(Productos producto : this.Contenidos) {
-			dscombo += producto.getPrecio() * 0.20;
-			total += producto.getPrecio()+ dscombo;
-		}
-		this.precio = total;
+		this.idCombo = codigo;
+		this.precio = Precio;
+		this.idproductos = ids;
 	}
 }
