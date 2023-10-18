@@ -75,8 +75,8 @@ public class Factura {
 		total = total - restar;
 		this.valorTotal = total;
 	}
- public void sumaringredientes(int sumar)   {
- total = total + sumar;
- this.valorTotal = total;
- }
+	public void sumaringredientes(int sumar) {
+		total = total + sumar;
+		this.valorTotal = total;
+	}
 }

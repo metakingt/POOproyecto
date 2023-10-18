@@ -151,8 +151,8 @@ public class xxe {
 		}
 	public void imprimirFacturas() {
 	for(Factura factura : this.facturas) {
- factura.sumaringeedientes(aumento);
-	factura.restaringredientes(descuento);
+		factura.sumaringredientes(aumento);
+		factura.restaringredientes(descuento);
 		System.out.println("-------");
 		System.out.println(factura.getNumero() + " -> " + factura.getFecha() + " -> " + factura.getValorTotal() + " -> " + factura.getCajero().getNombre());
 		for(Facturaproducto facturaProducto : factura.getFacturaproductos()) {
@@ -178,15 +178,16 @@ public class xxe {
 				descuento = descuento + descuento1;
 			}
 		}
-	}	
-public int aumento;
-  public void sumaringredientes(int idIngrediente) {
-for(int i = 0; i < ingredientes.size(); i++) {
+	}
+	public int aumento;
+	public void sumaingredientes(int idIngrediente) {
+		for(int i = 0; i < ingredientes.size(); i++) {
 			if(ingredientes.get(i).getCodigo() == idIngrediente) {
-aumento = ingredientes.get(i).getPrecio();
- }
-}
-} 
+				int aumento1 = ingredientes.get(i).getPrecio();
+				aumento = aumento + aumento1;
+			}
+		}
+	}
 }
 
 		
