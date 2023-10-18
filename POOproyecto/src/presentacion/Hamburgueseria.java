@@ -151,6 +151,7 @@ public class Hamburgueseria {
 		    							+ "2. No\n");
 	            			otroProducto = sc.nextInt();
 	            			int desingr = 1;
+                int desingr = 1;
 	            			do {
 	            			System.out.println("quiere quitar algun ingrediente?\n"
 	            					+ "1. si\n"
@@ -162,6 +163,18 @@ public class Hamburgueseria {
 	            				this.xxe.restaingredientes(newingr);
 	            			}
 	            			}while(desingr == 1);
+do {
+System.out.println("quiere anadir algun ingrediente?\n"
+	            					+ "1. si\n"
+	            					+ "2. no\n");
+	            			desingr1 = sc.nextInt();
+	            			if(desingr1 == 1) {
+	            				System.out.println("ingrese el id del ingrediente ");
+	            				int newingr = sc.nextInt();
+	            				this.xxe.sumaingredientes(newingr);
+	            			}
+	            			}while(desingr1 == 1);
+
 	            		}while(otroProducto == 1);
 	            		this.xxe.ingresarFactura(idCajero,fecha, productosComprados);
 	            	}else {
