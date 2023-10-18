@@ -178,6 +178,14 @@ public class xxe {
 			}
 		}
 	}	
+Public int aumento;
+  public void sumaringredientes(int idingrediente) {
+for(int i = 0; i < ingredientes.size(); i++) {
+			if(ingredientes.get(i).getCodigo() == idIngrediente) {
+int aumento = ingredientes.get(i).getPrecio();
+ }
+}
+} 
 }
 
 		
