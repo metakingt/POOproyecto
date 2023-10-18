@@ -151,7 +151,8 @@ public class xxe {
 		}
 	public void imprimirFacturas() {
 	for(Factura factura : this.facturas) {
-		factura.restaringredientes(descuento);
+ factura.sumaringeedientes(aumento);
+	factura.restaringredientes(descuento);
 		System.out.println("-------");
 		System.out.println(factura.getNumero() + " -> " + factura.getFecha() + " -> " + factura.getValorTotal() + " -> " + factura.getCajero().getNombre());
 		for(Facturaproducto facturaProducto : factura.getFacturaproductos()) {
